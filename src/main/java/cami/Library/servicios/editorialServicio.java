@@ -1,6 +1,7 @@
 package cami.Library.servicios;
 
 import cami.Library.entidades.Editorial;
+import cami.Library.excepciones.EditorialExcepciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cami.Library.repositorios.editorialRepositorio;
@@ -16,11 +17,16 @@ public class editorialServicio {
         editorialRepositorio = editorialRepositorio1;
     }
     
-    public void registrarEditorial(String nombre) {
+    public void registrarEditorial(String nombre) throws EditorialExcepciones {
         
         if (editorialRepositorio.findByNombreIgnoreCase(nombre) == null) {
             Editorial editorial = new Editorial();
-            editorial.setNombre(nombre);
+            if (nombre.isEmpty()) {
+                throw new EditorialExcepciones("El nombre de la editorial no puede estar vacio");
+            } else {
+                editorial.setNombre(nombre);
+            }
+            
             editorial.setAlta(true);
             editorialRepositorio.save(editorial);
         }

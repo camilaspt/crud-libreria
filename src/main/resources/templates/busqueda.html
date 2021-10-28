@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"> </head>
+
+<body style="background: url(https://i.pinimg.com/564x/bf/53/35/bf533592be78830fc299cc9fdebb1fc7.jpg);">
+
+        <div th:replace="/fragments/divsecundarios :: divsecundario(subtitulo ='Busqueda de autores')">  
+         </div>
+
+    <div class="container mt-5 mx-auto">
+        <div class="row text-center d-flex justify-content-center">
+            <div class="col-md-4 mb-3 p-3 d-flex flex-column align-items-center" style="background-color: #9496b8;">
+                <form action="/libro/busqueda" method="POST">
+                    <select class="form-select" th:name="id" style="margin-left: 3.5%">
+                        <option th:each="l : ${listado}" th:text="${l.nombre}" th:value="${l.id}"> </option>
+                    </select>
+                    <button type="submit" class="btn btn-outline-dark m-2 w-100">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</html>
