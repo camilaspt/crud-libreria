@@ -35,10 +35,26 @@ public class libroServicio {
                 libro.setIsbn(isbn);
             }
 
-            libro.setTitulo(titulo);
-            libro.setAnio(anio);
+            if (titulo.isEmpty() || titulo == null) {
+                throw new LibroExcepciones("El titulo del libro no puede ser nulo");
+            } else {
+                libro.setTitulo(titulo);
+            }
+
+            if (anio.toString().isEmpty()) {
+                throw new LibroExcepciones("El año de publicacion del libro no puede estar vacio");
+            } else {
+                libro.setAnio(anio);
+            }
+
             libro.setEjemplares(ejemplares);
-            libro.setEjemplaresPrestados(ejemplaresPrestados);
+
+            if (ejemplaresPrestados > ejemplares) {
+                throw new LibroExcepciones("No puede haber mas ejemplares prestados que existentes");
+            } else {
+                libro.setEjemplaresPrestados(ejemplaresPrestados);
+            }
+
             libro.setEjemplaresRestantes(ejemplaresRestantes);
             libro.setAlta(true);
 
@@ -84,5 +100,29 @@ public class libroServicio {
         libro.setEditorial(editorialRepositorio.findById(idEditorial).get());
         libro.setAutor(autorRepositorio.findById(idAutor).get());
         libroRepositorio.save(libro);
+    }
+
+    public List<Libro> listaPorAutor(String idAutor) throws Exception {
+        Optional<Autor> autor = autorRepositorio.findById(idAutor);
+        if (autor.isPresent()) {
+            List<Libro> lista = libroRepositorio.findByAutorNombreIgnoreCase(autor.get().getNombre());
+            return lista;
+        } else {
+            throw new Exception("no se encontro el autor");
+        }
+    }
+
+    public List<Libro> listaPorEditorial(String idEditorial) throws Exception {
+        Optional<Editorial> editorial = editorialRepositorio.findById(idEditorial);
+        if (editorial.isPresent()) {
+            List<Libro> lista = libroRepositorio.findByEditorialNombreIgnoreCase(editorial.get().getNombre());
+            return lista;
+        } else {
+            throw new Exception("no se encontro la editorial");
+        }
+    }
+
+    public Libro busquedaTitulo(String titulo) {
+        return libroRepositorio.findByTituloIgnoreCase(titulo);
     }
 }

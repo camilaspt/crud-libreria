@@ -1,52 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head>
-    <title>Registro libro</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+    <head th:replace="/fragments/head :: head"> </head>
 
-<body style="background: url(https://i.pinimg.com/564x/bf/53/35/bf533592be78830fc299cc9fdebb1fc7.jpg)">
+    <body style="background: url(https://i.pinimg.com/564x/bf/53/35/bf533592be78830fc299cc9fdebb1fc7.jpg)">
+        
+        <div th:replace="/fragments/divsecundarios :: divsecundario(subtitulo ='Registro de libros')">  
+        </div>
+        
+        <div class="container mt-5 mx-auto">
+            <div class="row text-center d-flex justify-content-center">
+                <div class="col-md-4 mb-3 p-3 d-flex flex-column align-items-center" style="background-color: #9496b8; ">
+                    <form action="/libro/save" method="POST">
+                        <input type="number" class="form-control m-2 w-100" name="isbn" placeholder="ISBN">
+                        <input type="text" class="form-control m-2 w-100" name="titulo" placeholder="Titulo">
+                        <input type="number" class="form-control m-2 w-100" name="anio" placeholder="Año de publicacion">
+                        <input type="number" class="form-control m-2 w-100" name="ejemplares"
+                               placeholder="Ejemplares disponibles">
+                        <input type="number" class="form-control m-2 w-100" name="ejemplaresprest"
+                               placeholder="Ejemplares prestados">
 
-    <div class="container-fluid p-2 text-white text-center" style="background-color: #3C455C;">
-        <h1>Registro libro</h1>
-    </div>
+                        <select class="form-select m-2" th:name="idautor" style="margin-left: 3.5%">
+                            <option th:each="a : ${autores}" th:text="${a.nombre}" th:value="${a.id}"> </option>
+                        </select>
 
-    <div class="container mt-5 mx-auto">
-        <div class="row text-center d-flex justify-content-center">
-            <div class="col-md-4 mb-3 p-3 d-flex flex-column align-items-center" style="background-color: #9496b8; ">
-                <form action="/libro/save" method="POST">
-                    <input type="number" class="form-control m-2 w-100" name="isbn" placeholder="ISBN">
-                    <input type="text" class="form-control m-2 w-100" name="titulo" placeholder="Titulo">
-                    <input type="number" class="form-control m-2 w-100" name="anio" placeholder="Año de publicacion">
-                    <input type="number" class="form-control m-2 w-100" name="ejemplares"
-                        placeholder="Ejemplares disponibles">
-                    <input type="number" class="form-control m-2 w-100" name="ejemplaresprest"
-                        placeholder="Ejemplares prestados">
-                    
-                    <select class="form-select m-2" th:name="idautor" style="margin-left: 3.5%">
-                        <option th:each="a : ${autores}" th:text="${a.nombre}" th:value="${a.id}"> </option>
-                    </select>
-                    
-                    <select class="form-select m-2" th:name="ideditorial" style="margin-left: 3.5%">
-                        <option th:each="e : ${editoriales}" th:text="${e.nombre}" th:value="${e.id}"> </option>
-                    </select>
-                    
-<!--                    <input type="text" class="form-control m-2 w-100" name="autor" placeholder="Autor">
-                <input type="text" class="form-control m-2 w-100" name="editorial" placeholder="Editorial">-->
-                    <button type="submit" class="btn btn-outline-dark m-2 w-100">Registrar</button>
-                    <a href="/" class="btn btn-outline-dark m-2 w-100">Volver</a>
-                </form>
-
+                        <select class="form-select m-2" th:name="ideditorial" style="margin-left: 3.5%">
+                            <option th:each="e : ${editoriales}" th:text="${e.nombre}" th:value="${e.id}"> </option>
+                        </select>
+                        
+                        <button type="submit" class="btn btn-outline-dark m-2 w-100">Registrar</button>
+                    </form>
+                </div>
             </div>
         </div>
-
-    </div>
-
-
-</body>
+        
+    </body>
 
 </html>

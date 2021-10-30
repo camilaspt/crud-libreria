@@ -15,4 +15,9 @@ public interface libroRepositorio extends JpaRepository<Libro, String> {
 
     @Query("select l from Libro l order by l.titulo")
     List<Libro> listOrderByTitulo();
+
+    List<Libro> findByEditorialNombreIgnoreCase(String nombre);
+
+    List<Libro> findByAutorNombreIgnoreCase(String nombre);
+
 }
