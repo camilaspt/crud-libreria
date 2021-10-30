@@ -1,5 +1,6 @@
 package cami.Library.contollers;
 
+import cami.Library.excepciones.EditorialExcepciones;
 import cami.Library.servicios.editorialServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,14 +24,14 @@ public class editorialControlador {
     }
 
     @PostMapping("/save")
-    public String saveEditorial(@RequestParam String nombre) {
+    public String saveEditorial(@RequestParam String nombre, Model model) {
 
         try {
             editorialservicio.registrarEditorial(nombre);
-        } catch (Exception e) {
-            System.out.println("error cargando editorial");
+        } catch (EditorialExcepciones e) {
+            model.addAttribute("error", e.getMessage());
         }
-        return "redirect:/";
+        return "registerEditorial";
     }
 
     @GetMapping("/lista")

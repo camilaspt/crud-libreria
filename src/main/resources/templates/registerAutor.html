@@ -8,6 +8,13 @@
         <div th:replace="/fragments/divsecundarios :: divsecundario(subtitulo ='Registro de autores')">  
         </div>
         
+        <div class="d-flex justify-content-center text-center mx-auto pt-3" style="width: 50%">
+            <div th:if="${error}" class="alert alert-warning alert-dismissible fade show" role="alert">
+                <p th:text="${error}">Ocurrio un error</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        
         <div class="container mt-5 mx-auto">
             <div class="row text-center d-flex justify-content-center">
                 <div class="col-md-4 mb-3 p-3 d-flex flex-column align-items-center" style="background-color:#9496b8; ">

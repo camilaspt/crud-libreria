@@ -15,7 +15,7 @@
                         <select class="form-select" th:name="id" style="margin-left: 3.5%">
                             <option th:each="a : ${autores}" th:text="${a.nombre}" th:value="${a.id}"> </option>
                         </select>
-                        <input type="text" class="form-control m-2 w-100" name="nuevonombre" placeholder="Nuevo nombre del autor">
+                        <input type="text" class="form-control m-2 w-100" name="nuevonombre" placeholder="Nuevo nombre">
                         <button type="submit" class="btn btn-outline-dark m-2 w-100">Modificar</button>
                     </form>             
                 </div>

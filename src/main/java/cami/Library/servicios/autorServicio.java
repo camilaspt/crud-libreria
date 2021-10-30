@@ -18,14 +18,16 @@ public class autorServicio {
     @Transactional
     public void registrarAutor(String nombre) throws AutorExcepciones {
 
-        if (autorRepositorio.findByNombreIgnoreCase(nombre) == null) {
-            Autor autor = new Autor();
-            if (nombre.isEmpty()) {
-                throw new AutorExcepciones("El nombre del autor no puede ser nulo");
-            }
-            autor.setNombre(nombre);
-            autorRepositorio.save(autor);
+        if (nombre.isEmpty() || nombre == null) {
+            throw new AutorExcepciones("El nombre del autor no puede ser nulo");
         }
+        if (autorRepositorio.findByNombreIgnoreCase(nombre) != null) {
+            throw new AutorExcepciones("El autor ya se encuentra registrado");
+        }
+        Autor autor = new Autor();
+        autor.setNombre(nombre);
+        autorRepositorio.save(autor);
+
     }
 
     public List<Autor> listAll() {
